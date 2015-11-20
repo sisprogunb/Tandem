@@ -10,6 +10,7 @@ package tandemplatform;
  * @author gshimabuko
  */
 public class User {
+    private Integer idUser = null;
     private String name = null;
     private String surname= null;
     private String username = null;
@@ -22,6 +23,14 @@ public class User {
     private String countryOfResidence = null;
     private Integer nativeLanguage = 0;
     
+    public void setidUser(Integer n)
+    {
+        idUser = n;
+    }
+    public Integer getidUser()
+    {
+        return(idUser);
+    }
     public void setName(String n)
     {
         name = n;
