@@ -12,10 +12,10 @@ public class InitialFrame extends JFrame implements ActionListener {
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextPane jTextPane1;
-
-    public InitialFrame() {
-        initComponents();
-    }
+        
+        public InitialFrame() {
+            initComponents();
+        }
                         
     private void initComponents() {
 
@@ -89,7 +89,7 @@ public class InitialFrame extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent e){
         
-        Signin signin = new Signin();
+        SigninFrame signin = new SigninFrame();
         signin.setVisible(true);
         signin.setLocationRelativeTo(null);
         signin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
