@@ -1,4 +1,5 @@
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -9,6 +10,9 @@ import java.util.logging.Logger;
 public class IndServer extends Thread {
 
     private Socket socket;
+    private String username = null;
+    private String password = null;
+    private String info = null;
     
     public IndServer(Socket socket){
         
@@ -25,27 +29,51 @@ public class IndServer extends Thread {
             
             System.out.println("Stream estabelecido");
             
-            String info = (String) input.readObject();
+            while(true){
             
-            System.out.printf("%s", info);
+                this.info = (String) input.readObject();
             
-            if (info.equalsIgnoreCase("cadastro")){
+                System.out.printf("%s", info);
             
-                User user = (User) input.readObject();
+                if (info.equalsIgnoreCase("cadastro")){
             
-                SqlComms sqlConnect = new SqlComms();
-                sqlConnect.createUser(user);
+                    User user = (User) input.readObject();
             
-                System.out.println("Usuário cadastrado");
-            }
-            
-            if (info.equalsIgnoreCase("login")){
-                
-                String username = (String) input.readObject();
-                
-                SqlComms sqlConnect = new SqlComms();
-                sqlConnect.userExist(username);
-                
+                    SqlComms sqlConnect = new SqlComms();
+                    sqlConnect.createUser(user);
+
+                    System.out.println("Usuário cadastrado");
+                }
+
+                if (info.equalsIgnoreCase("login1")){
+
+                    this.username = (String) input.readObject();
+
+                    SqlComms sqlConnect = new SqlComms();
+
+                    if (sqlConnect.userExist(username) == 1){
+                        output.writeBoolean(true);
+                        output.flush();
+                    } else{
+                        output.writeBoolean(false);
+                        output.flush();
+                    }
+                }
+
+                 if (info.equalsIgnoreCase("login2")){
+
+                    this.password = (String) input.readObject();
+
+                    SqlComms sqlConnect = new SqlComms();
+
+                    if ( sqlConnect.login(username, password) == 1 ){
+                        output.writeBoolean(true);
+                        output.flush();
+                    } else {
+                        output.writeBoolean(false);
+                        output.flush();
+                    }
+                }
             }
             
         } catch (IOException ex) {

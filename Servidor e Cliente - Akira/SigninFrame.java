@@ -200,8 +200,10 @@ public class SigninFrame extends javax.swing.JFrame {
         
         clientclass.sendUser(user);
         
+        clientclass.closeConnection();
+        
         this.setVisible(false);
-        InitialFrame o = new InitialFrame();
+        InitialPanel o = new InitialPanel();
         o.setLocationRelativeTo(null);
         o.setVisible(true);
         o.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

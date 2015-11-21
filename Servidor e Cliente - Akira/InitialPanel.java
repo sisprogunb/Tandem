@@ -1,3 +1,6 @@
+
+import javax.swing.JFrame;
+
 public class InitialPanel extends javax.swing.JFrame {
 
     public InitialPanel() {
@@ -22,6 +25,11 @@ public class InitialPanel extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         signinButton.setText("SIGN IN NOW!");
+        signinButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                signinButtonActionPerformed(evt);
+            }
+        });
 
         labelPassword.setText("PASSWORD");
 
@@ -90,11 +98,50 @@ public class InitialPanel extends javax.swing.JFrame {
         String password = passwordField.getText();
         
         ClientClass clientclass = new ClientClass();
+        
         clientclass.startConnection();
-        clientclass.sendData(username);
+        
+        clientclass.sendUsername(username);
+        
+        boolean control = clientclass.receiveData();
+        
+        System.out.println(control);
+        
+        if (control){
+            
+            clientclass.sendPassword(password);
+            boolean control2 = clientclass.receiveData();
+            System.out.println(control2);
+            
+            if (control2){
+                
+                System.out.println("Login accepted");
+                clientclass.closeConnection();
+                
+            } else{
+                System.out.println("Login refused. Try again.");
+                textfieldUsername.setText(null);
+                passwordField.setText(null);
+            }
+            
+        } else {
+            System.out.println("User doesn't existe. Try again.");
+            textfieldUsername.setText(null);
+            passwordField.setText(null);    
+        }
         
         
     }//GEN-LAST:event_loginButtonActionPerformed
+
+    private void signinButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signinButtonActionPerformed
+        
+        SigninFrame signin = new SigninFrame();
+        signin.setVisible(true);
+        signin.setLocationRelativeTo(null);
+        signin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setVisible(false);
+        
+    }//GEN-LAST:event_signinButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel3;

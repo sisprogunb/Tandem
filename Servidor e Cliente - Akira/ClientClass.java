@@ -10,6 +10,7 @@ public class ClientClass {
     private ObjectOutputStream output = null;
     private ObjectInputStream input = null;
     private final String servername = "localhost";
+    private boolean control = false;
     
     public void startConnection(){
         
@@ -44,12 +45,12 @@ public class ClientClass {
         }    
     }
     
-        public void sendData(String string){
+    public void sendUsername(String string){
         
         try {
             
-            String info = "login";
-            output.writeObject(string);
+            String info = "login1";
+            output.writeObject(info);
             output.flush();
             
             output.writeObject(string);
@@ -59,6 +60,35 @@ public class ClientClass {
         } catch (IOException ex) {
             Logger.getLogger(ClientClass.class.getName()).log(Level.SEVERE, null, ex);
         }    
+    }
+    
+    public void sendPassword(String string){
+        
+        try {
+            
+            String info = "login2";
+            output.writeObject(info);
+            output.flush();
+            
+            output.writeObject(string);
+            output.flush();
+            System.out.println("Sended.");
+        
+        } catch (IOException ex) {
+            Logger.getLogger(ClientClass.class.getName()).log(Level.SEVERE, null, ex);
+        }    
+    }
+    
+    public boolean receiveData(){
+        
+        try {
+            control = input.readBoolean();
+        } catch (IOException ex) {
+            Logger.getLogger(ClientClass.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if (control) return true;
+                else return false;
     }
     
     public void closeConnection(){

@@ -5,7 +5,7 @@ public class ClientMain {
 
     public static void main(String[] args) {
         
-        InitialFrame initialframe = new InitialFrame(); 
+        InitialPanel initialframe = new InitialPanel(); 
         initialframe.setVisible(true);
         initialframe.setLocationRelativeTo(null);
         initialframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
