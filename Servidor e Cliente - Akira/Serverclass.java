@@ -34,14 +34,7 @@ public class Serverclass {
             } catch (IOException io){
                 io.printStackTrace();
             }
-        }
-        
-        /*
-        InitialFrame o = new InitialFrame();
-        o.setLocationRelativeTo(null);
-        o.setVisible(true);
-        o.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        */  
+        } 
     }
 } 
 

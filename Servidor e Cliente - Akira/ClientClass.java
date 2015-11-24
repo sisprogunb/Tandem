@@ -32,7 +32,7 @@ public class ClientClass {
         
         try {
             
-            String string = "cadastro";
+            String string = "cadastro1";
             output.writeObject(string);
             output.flush();
             
@@ -43,6 +43,26 @@ public class ClientClass {
         } catch (IOException ex) {
             Logger.getLogger(ClientClass.class.getName()).log(Level.SEVERE, null, ex);
         }    
+    }
+    
+    public void sendLanguages(UserLanguages userlan){
+        
+        try {
+            
+            String string = "cadastro2";
+            output.writeObject(string);
+            output.flush();
+
+            //output.writeObject(user);
+            //output.flush();
+            output.writeObject(userlan);
+            output.flush();
+            System.out.println("Sended.");
+            
+        } catch (IOException ex) {
+            Logger.getLogger(ClientClass.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        
     }
     
     public void sendUsername(String string){
