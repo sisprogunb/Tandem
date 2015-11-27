@@ -342,7 +342,17 @@ public class SqlComms
                                 ResultSet resultSet5 = membLang.executeQuery();
                                 while(resultSet5.next())
                                 {
-                                    listMember.setNewLanguage(resultSet5.getInt("Languages_idLanguages"), resultSet5.getInt("Fluency"),resultSet5.getInt("hasInterest"), resultSet5.getInt("Native"));
+                                    query = "SELECT Name FROM Languages WHERE idLanguages = ?";
+                                    searchLang = connection.prepareStatement(query);
+                                    searchLang.setString(1, Integer.toString(listMember.getidUser()));
+                                    ResultSet resultSet6 = searchLang.executeQuery();
+                                    if(resultSet6.next())
+                                    {
+                                        String langName = resultSet6.getString("Name");
+                                        
+                                        listMember.setNewLanguage(langName, resultSet5.getInt("Languages_idLanguages"), resultSet5.getInt("Fluency"),resultSet5.getInt("hasInterest"), resultSet5.getInt("Native"));
+                                    }
+                                    
                                 }
                                 userList.add(listMember);
                             }
@@ -438,14 +448,17 @@ public class SqlComms
     {
         PreparedStatement searchUser = null;
         User user = new User();
+        
         try
         {
-            query = "SELECT * FROM Users WHERE username = ?";
+            query = "SELECT * FROM Users INNER JOIN "
+                    + "Users_has_Languages ON Users.idUser = Users_has_Languages.Users_idUser "
+                    + "WHERE username = ?";
             System.out.println("Searching username: " +username);
             searchUser = connection.prepareStatement(query);
             searchUser.setString(1, username);
             ResultSet resultSet = searchUser.executeQuery();
-            if(resultSet.next())
+            while(resultSet.next())
             {
                 user.setidUser(resultSet.getInt("idUser"));
                 user.setName(resultSet.getString("Name"));
@@ -456,11 +469,46 @@ public class SqlComms
                 user.setEmail(resultSet.getString("email"));
                 user.setCOO(resultSet.getString("CountryOfOrigin"));
                 user.setCOR(resultSet.getString("CountryOfResidence"));
+                int lang  = resultSet.getInt("Languages_idLanguages");
+                int Fluency = resultSet.getInt("Fluency");
+                int hasInterest = resultSet.getInt("hasInterest");
+                int nativity = resultSet.getInt("Native");
+                
+                query = "SELECT Name FROM Languages WHERE idLanguages = ?";
+                PreparedStatement searchLang = connection.prepareStatement(query);
+                searchLang.setString(1, Integer.toString(lang));
+                ResultSet resultSet2 = searchLang.executeQuery();
+                if(resultSet2.next())
+                {
+                    String langName = resultSet2.getString("Name");
+                    user.setNewLanguage(langName, lang, Fluency, hasInterest, nativity);
+                    while(resultSet.next())
+                    {
+                        lang  = resultSet.getInt("Languages_idLanguages");
+                        Fluency = resultSet.getInt("Fluency");
+                        hasInterest = resultSet.getInt("hasInterest");
+                        nativity = resultSet.getInt("Native");
+                        query = "SELECT Name FROM Languages WHERE idLanguages = ?";
+                        searchLang = connection.prepareStatement(query);
+                        searchLang.setString(1, Integer.toString(lang));
+                        ResultSet resultSet3 = searchLang.executeQuery();
+                        if(resultSet3.next())
+                        {
+                            langName = resultSet3.getString("Name");
+                            user.setNewLanguage(langName, lang, Fluency, hasInterest, nativity);
+                        }
+                        searchLang = connection.prepareStatement(query);
+                        searchLang.setString(1, Integer.toString(lang));
+                        user.setNewLanguage(langName, lang, Fluency, hasInterest, nativity);
+                    }
+                }
             }
+            /*
             else
             {
                 System.out.println("Usuario não existe");
             }
+                    */
         }
         catch(SQLException sqlExc)
         {

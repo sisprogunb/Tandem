@@ -69,9 +69,9 @@ public class User {
     {
         countryOfResidence = n;
     }
-    public void setNewLanguage(int lang, int fluency, int interest, int nativity)
+    public void setNewLanguage(String langua, int lang, int fluency, int interest, int nativity)
     {
-        Language Lang = new Language(lang, fluency, interest, nativity);
+        Language Lang = new Language(langua, lang, fluency, interest, nativity);
         languages.add(Lang);
     }
     public String getName()

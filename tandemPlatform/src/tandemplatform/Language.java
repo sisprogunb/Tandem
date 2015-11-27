@@ -15,17 +15,27 @@ public class Language
     private int fluency;
     private int interest;
     private int nativity;
+    private String langName;
     
-    public Language(int idLang, int Fluenc, int inter, int nat)
+    public Language()
+    {
+        
+    }
+    public Language(String lan,int idLang, int Fluenc, int inter, int nat)
     {
         setID(idLang);
         setFluency(Fluenc);
         setInterest(inter);
         setNativity(nat);
+        setName(lan);
     }
     public void setID(int idLang)
     {
         ID = idLang;
+    }
+    public void setName(String lang)
+    {
+        langName = lang;
     }
     public void setFluency(int Fluenc)
     {
@@ -54,5 +64,9 @@ public class Language
     public int getNativity()
     {
         return(nativity);
+    }
+    public String getName()
+    {
+        return (langName);
     }
 }

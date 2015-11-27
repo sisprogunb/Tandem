@@ -5,6 +5,7 @@
  */
 package tandemplatform;
 
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,6 +21,7 @@ public class TandemPlatform {
         
         SqlComms sqlConnect = new SqlComms();
         int valida = 0;
+        ArrayList <Language> languages = new ArrayList();
         
        
         User user = new User();
@@ -142,8 +144,9 @@ public class TandemPlatform {
         sqlConnect.updateLanguage(user5, 1, 5, 0);
         user4.setCOR("USA");
         sqlConnect.updateUser(user4);
-        sqlConnect.logoff(user);
         sqlConnect.busy(user);
+        sqlConnect.logoff(user);
+        
         User userTester = sqlConnect.searchByUsername(user3.getUsername());
         System.out.println("Username: " + userTester.getUsername());
         System.out.println("Name: " + userTester.getName());
@@ -154,6 +157,20 @@ public class TandemPlatform {
         System.out.println("Email: " + userTester.getEmail());
         System.out.println("Country of Residence: " + userTester.getCOR());
         System.out.println("Country of Origin: " + userTester.getCOO());
+        languages = userTester.getLanguages();
+        int i = 0;
+        Language lang = new Language();
+        System.out.println("User has "+ languages.size() + " languages");
+        while(i<languages.size())
+        {
+            lang  = languages.get(1);
+            
+            System.out.println("Language id: "+ lang.getID());
+            System.out.println("Fluency: "+ lang.getFluency());
+            System.out.println("User has interest?" + lang.getInterest());
+            System.out.println("Is this a native Language?" + lang.getNativity());
+            i = i+1;
+        }
     }
     
 }
