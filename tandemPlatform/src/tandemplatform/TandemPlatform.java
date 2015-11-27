@@ -30,14 +30,14 @@ public class TandemPlatform {
         User user6 = new User();
         
         User userTest = new User();
-        /*
+        
         do
         {
             String usuario = JOptionPane.showInputDialog("Digite seu usuario");
             String pass = JOptionPane.showInputDialog("Digite sua senha");
             valida  = sqlConnect.login(usuario, pass);
         }while (valida!=1);
-        */
+        
         user.setName("Herp");
         user.setSurname("Derp");
         user.setUsername("HerpDerpy");
@@ -138,6 +138,22 @@ public class TandemPlatform {
         }
         // TODO code application logic here
         sqlConnect.searchLanguageUser(3, userTest, 3, 5);
+        
+        sqlConnect.updateLanguage(user5, 1, 5, 0);
+        user4.setCOR("USA");
+        sqlConnect.updateUser(user4);
+        sqlConnect.logoff(user);
+        sqlConnect.busy(user);
+        User userTester = sqlConnect.searchByUsername(user3.getUsername());
+        System.out.println("Username: " + userTester.getUsername());
+        System.out.println("Name: " + userTester.getName());
+        System.out.println("Surname: " + userTester.getSurname());
+        System.out.println("Password: " + userTester.getPassword());
+        System.out.println("Birthdate: " + userTester.getBirthdate());
+        System.out.println("Occupation: " + userTester.getOccupation());
+        System.out.println("Email: " + userTester.getEmail());
+        System.out.println("Country of Residence: " + userTester.getCOR());
+        System.out.println("Country of Origin: " + userTester.getCOO());
     }
     
 }

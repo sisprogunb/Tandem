@@ -148,6 +148,101 @@ public class SqlComms
             sqlException.printStackTrace();
         }
     }
+    public void updateLanguage(User user, int language, int fluency, int hasInterest)
+    {
+         PreparedStatement insertLanguage = null;
+        int result = 0;
+        String userID = null;
+        String Lang = Integer.toString(language);
+        String Fluenc = Integer.toString(fluency);
+        String Interest = Integer.toString(hasInterest);
+        user.setidUser(searchUserID(user.getUsername()));
+        
+        try
+        {
+            
+            query = "UPDATE Users_has_Languages SET Fluency = ?, hasInterest = ? WHERE  "
+                    + "Users_idUser = ? AND Languages_idLanguages = ?";
+            
+            
+            userID = userID = Integer.toString(user.getidUser());
+            insertLanguage = connection.prepareStatement(query);
+            insertLanguage.setString(1, Fluenc);
+            insertLanguage.setString(2, Interest);
+            insertLanguage.setString(3, userID );
+            insertLanguage.setString(4, Lang);
+            result = insertLanguage.executeUpdate();
+        }
+        catch(SQLException sqlException)
+        {
+            sqlException.printStackTrace();
+        }
+        
+    }
+    public void updateUser(User user)
+    {
+        PreparedStatement insertLanguage = null;
+        int result = 0;
+        String userID = null;
+        user.setidUser(searchUserID(user.getUsername()));
+        
+        try
+        {
+            
+            query = "UPDATE Users SET password = ?, Occupation = ?, email = ?, CountryOfResidence = ? WHERE  "
+                    + "idUser = ?";
+            
+            
+            userID = userID = Integer.toString(user.getidUser());
+            insertLanguage = connection.prepareStatement(query);
+            insertLanguage.setString(1, user.getPassword());
+            insertLanguage.setString(2, user.getOccupation());
+            insertLanguage.setString(3, user.getEmail() );
+            insertLanguage.setString(4, user.getCOR());
+            insertLanguage.setString(5, Integer.toString(user.getidUser()));
+            result = insertLanguage.executeUpdate();
+        }
+        catch(SQLException sqlException)
+        {
+            sqlException.printStackTrace();
+        }
+    }
+    public void busy(User user)
+    {
+        PreparedStatement logOffStatement = null;
+        try
+        {
+            query = "UPDATE Users SET Status = ? WHERE  "
+                    + "username = ?";
+                    logOffStatement = connection.prepareStatement(query);
+                    logOffStatement.setString(1, "2");
+                    logOffStatement.setString(2, user.getUsername());
+                    int result = logOffStatement.executeUpdate();
+                    System.out.println("Query executada!");
+        }
+        catch(SQLException sqlException)
+        {
+            sqlException.printStackTrace();
+        }        
+    }
+    public void logoff(User user)
+    {
+        PreparedStatement logOffStatement = null;
+        try
+        {
+            query = "UPDATE Users SET Status = ? WHERE  "
+                    + "username = ?";
+                    logOffStatement = connection.prepareStatement(query);
+                    logOffStatement.setString(1, "0");
+                    logOffStatement.setString(2, user.getUsername());
+                    int result = logOffStatement.executeUpdate();
+                    System.out.println("Query executada!");
+        }
+        catch(SQLException sqlException)
+        {
+            sqlException.printStackTrace();
+        }
+    }
     public int userExist(String username)
     {
         PreparedStatement searchUser = null;
@@ -310,6 +405,7 @@ public class SqlComms
             loginResult = loginStatement.executeQuery();
             System.out.println("Query executada!");
             while(loginResult.next())
+               
             {
                 System.out.println("teste do if");
                 String Pass = loginResult.getString("password");
@@ -317,6 +413,13 @@ public class SqlComms
                 if (Password.equals(Pass))
                 {
                     valida = 1;
+                    query = "UPDATE Users SET Status = ? WHERE  "
+                    + "username = ?";
+                    loginStatement = connection.prepareStatement(query);
+                    loginStatement.setString(1, "1");
+                    loginStatement.setString(2, username);
+                    int result = loginStatement.executeUpdate();
+                    System.out.println("Query executada!");
                 }
                 else
                 {
@@ -330,6 +433,40 @@ public class SqlComms
         }
         return(valida);
                     
+    }
+    public User searchByUsername(String username)
+    {
+        PreparedStatement searchUser = null;
+        User user = new User();
+        try
+        {
+            query = "SELECT * FROM Users WHERE username = ?";
+            System.out.println("Searching username: " +username);
+            searchUser = connection.prepareStatement(query);
+            searchUser.setString(1, username);
+            ResultSet resultSet = searchUser.executeQuery();
+            if(resultSet.next())
+            {
+                user.setidUser(resultSet.getInt("idUser"));
+                user.setName(resultSet.getString("Name"));
+                user.setSurname(resultSet.getString("Surname"));
+                user.setUsername(resultSet.getString("username"));
+                user.setBirthdate(resultSet.getString("Birthdate"));
+                user.setOccupation(resultSet.getString("Occupation"));
+                user.setEmail(resultSet.getString("email"));
+                user.setCOO(resultSet.getString("CountryOfOrigin"));
+                user.setCOR(resultSet.getString("CountryOfResidence"));
+            }
+            else
+            {
+                System.out.println("Usuario não existe");
+            }
+        }
+        catch(SQLException sqlExc)
+        {
+            sqlExc.printStackTrace();
+        }
+        return(user);
     }
               
 }
