@@ -6,6 +6,7 @@
 package tandemplatform;
 
 import java.util.ArrayList;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -32,14 +33,14 @@ public class TandemPlatform {
         User user6 = new User();
         
         User userTest = new User();
-        
+        /*
         do
         {
             String usuario = JOptionPane.showInputDialog("Digite seu usuario");
             String pass = JOptionPane.showInputDialog("Digite sua senha");
             valida  = sqlConnect.login(usuario, pass);
         }while (valida!=1);
-        
+        */
         user.setName("Herp");
         user.setSurname("Derp");
         user.setUsername("HerpDerpy");
@@ -161,6 +162,10 @@ public class TandemPlatform {
         int i = 0;
         Language lang = new Language();
         System.out.println("User has "+ languages.size() + " languages");
+        LangFrame NewLangFrame = new LangFrame(userTester);
+        NewLangFrame.setVisible(true);
+        NewLangFrame.setLocationRelativeTo(null);
+        NewLangFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         while(i<languages.size())
         {
             lang  = languages.get(1);

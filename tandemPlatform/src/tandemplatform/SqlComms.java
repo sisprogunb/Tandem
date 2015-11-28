@@ -482,6 +482,7 @@ public class SqlComms
                 {
                     String langName = resultSet2.getString("Name");
                     user.setNewLanguage(langName, lang, Fluency, hasInterest, nativity);
+                    System.out.println("First Language found: " +langName);
                     while(resultSet.next())
                     {
                         lang  = resultSet.getInt("Languages_idLanguages");
@@ -495,7 +496,8 @@ public class SqlComms
                         if(resultSet3.next())
                         {
                             langName = resultSet3.getString("Name");
-                            user.setNewLanguage(langName, lang, Fluency, hasInterest, nativity);
+                            
+                            System.out.println("Next Language found: " +langName);
                         }
                         searchLang = connection.prepareStatement(query);
                         searchLang.setString(1, Integer.toString(lang));
