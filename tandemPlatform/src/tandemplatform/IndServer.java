@@ -19,7 +19,6 @@ public class IndServer extends Thread {
     private String username;
     private String password;
     private String info;
-    private String uname;
     
     public IndServer(Socket socket){
         
@@ -143,10 +142,9 @@ public class IndServer extends Thread {
     
     private void cadastro2(User user){
         
-        try {
+       try {
             
             natlan = (Language) input.readObject();
-            intlan = (Language) input.readObject();
         
         } catch (IOException io){
             Logger.getLogger(IndServer.class.getName()).log(Level.SEVERE, null, io);
@@ -154,15 +152,13 @@ public class IndServer extends Thread {
             Logger.getLogger(IndServer.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        int language1 = natlan.getID();
-        int fluency1 = natlan.getFluency();
-        int language2 = intlan.getID();
-        int fluency2 = intlan.getFluency();
+        int language = natlan.getID();
+        int fluency = natlan.getFluency();
+        int interest = natlan.getInterest();
 
         SqlComms sqlConnect = new SqlComms();
 
-        sqlConnect.insertLanguage(user, language1, fluency1, 0);
-        sqlConnect.insertLanguage(user, language2, fluency2, 1);
+        sqlConnect.insertLanguage(user, language, fluency, interest);
 
         System.out.println("Languages received");
        
@@ -241,10 +237,6 @@ public class IndServer extends Thread {
             io.printStackTrace();
         } 
         
-    }
-    
-    private void setUsername(String username){
-        this.uname = username;
     }
     
 }
