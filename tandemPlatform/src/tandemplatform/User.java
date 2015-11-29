@@ -5,13 +5,14 @@
  */
 package tandemplatform;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author gshimabuko
  */
-public class User {
+public class User implements Serializable {
     private Integer idUser = null;
     private String name = null;
     private String surname= null;

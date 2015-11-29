@@ -1,8 +1,15 @@
 package tandemplatform;
 
+
 import javax.swing.JFrame;
 
 public class InitialPanel extends javax.swing.JFrame {
+    
+    User user = null;
+    
+    public User getUser(){
+        return user;
+    }
 
     public InitialPanel() {
         initComponents();
@@ -99,14 +106,17 @@ public class InitialPanel extends javax.swing.JFrame {
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         
         String username = textfieldUsername.getText();
-        String password = passwordField.getText();
         
-        ClientClass clientclass = new ClientClass();
         
+        String password;
+        password = passwordField.getText();
+        
+        ClientClass clientclass = new ClientClass();       
         clientclass.startConnection();
         
         clientclass.sendUsername(username);
         
+
         boolean control = clientclass.receiveData();
         
         System.out.println(control);
@@ -121,8 +131,20 @@ public class InitialPanel extends javax.swing.JFrame {
                 
                 System.out.println("Login accepted");
                 
+                clientclass.controlReceiveUser();
+                user = clientclass.receiveUser();
+                
                 ProfileFrame profile = new ProfileFrame();
+                profile.setUser(user);
+                
                 profile.setUsername( textfieldUsername.getText() );
+                profile.setName(user.getName());
+                profile.setBirthdate(user.getBirthdate());
+                profile.setSurname(user.getSurname());
+                profile.setOccupation(user.getOccupation());
+                profile.setEmail(user.getEmail());
+                profile.setCOO(user.getCOO());
+                profile.setCOR(user.getCOR());
                 profile.setClient(clientclass);
                 profile.setVisible(true);
                 profile.setLocationRelativeTo(null);

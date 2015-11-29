@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -69,7 +70,14 @@ public class IndServer extends Thread {
                             
                             login2();
                             break;
+                         
+                        case "user1" :
                             
+                            user1();
+                            break;  
+                        case "match":
+                            match();
+                            break;
                     }
           
                 }
@@ -81,7 +89,38 @@ public class IndServer extends Thread {
             }
         
     }
-    
+    private void match()
+    {
+        ArrayList <User> userArray = new ArrayList();
+        int language = -1;
+        User userData = new User();
+        int min = -1;
+        int max = -1;
+        try 
+        {
+            language = input.readInt();
+            userData = (User) input.readObject();
+            min = input.readInt();
+            max = input.readInt();
+            
+        } catch (IOException ex) {
+            Logger.getLogger(IndServer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(IndServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        SqlComms sqlConnect = new SqlComms();
+        userArray = sqlConnect.searchLanguageUser(language, userData, min, max);
+
+        System.out.println("User signed up");
+        
+        try {
+            output.writeObject(userArray);
+            output.flush();
+        } catch (IOException ex) {
+            Logger.getLogger(IndServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     private User cadastro1(){
         
         try {
@@ -182,6 +221,25 @@ public class IndServer extends Thread {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(IndServer.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+    }
+    
+        private void user1(){
+        
+        try { 
+            
+            SqlComms sqlConnect = new SqlComms();
+
+            User user2 = sqlConnect.searchByUsername(username);
+            
+            output.writeObject(user2);
+            output.flush();
+            
+            
+            
+        } catch(IOException io){
+            io.printStackTrace();
+        } 
         
     }
     

@@ -5,15 +5,8 @@
         <group>
             <file>file:/home/gshimabuko/NetBeansProjects/tandemPlatform/src/tandemplatform/ProfileFrame.java</file>
             <file>file:/home/gshimabuko/NetBeansProjects/tandemPlatform/src/tandemplatform/SqlComms.java</file>
-            <file>file:/home/gshimabuko/NetBeansProjects/tandemPlatform/src/tandemplatform/User.java</file>
-            <file>file:/home/gshimabuko/NetBeansProjects/tandemPlatform/src/tandemplatform/InitialPanel.java</file>
-            <file>file:/home/gshimabuko/NetBeansProjects/tandemPlatform/src/tandemplatform/ClientMain.java</file>
-            <file>file:/home/gshimabuko/NetBeansProjects/tandemPlatform/src/tandemplatform/SigninFrame2.java</file>
-            <file>file:/home/gshimabuko/NetBeansProjects/tandemPlatform/src/tandemplatform/Language.java</file>
-            <file>file:/home/gshimabuko/NetBeansProjects/tandemPlatform/src/tandemplatform/SigninFrame.java</file>
-            <file>file:/home/gshimabuko/NetBeansProjects/tandemPlatform/src/tandemplatform/TandemPlatform.java</file>
-            <file>file:/home/gshimabuko/NetBeansProjects/tandemPlatform/src/tandemplatform/LangFrame.java</file>
-            <file>file:/home/gshimabuko/NetBeansProjects/tandemPlatform/src/tandemplatform/UpdateLanguageFrame.java</file>
+            <file>file:/home/gshimabuko/NetBeansProjects/tandemPlatform/src/tandemplatform/IndServer.java</file>
+            <file>file:/home/gshimabuko/NetBeansProjects/tandemPlatform/src/tandemplatform/LangFrameForm.java</file>
         </group>
     </open-files>
 </project-private>

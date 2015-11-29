@@ -5,11 +5,13 @@
  */
 package tandemplatform;
 
+import java.io.Serializable;
+
 /**
  *
  * @author gshimabuko
  */
-public class Language 
+public class Language implements Serializable
 {
     private int ID;
     private int fluency;

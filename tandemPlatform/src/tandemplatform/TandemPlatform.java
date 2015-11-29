@@ -140,13 +140,7 @@ public class TandemPlatform {
             sqlConnect.insertLanguage(user6, 3, 4, 1);
         }
         // TODO code application logic here
-        sqlConnect.searchLanguageUser(3, userTest, 3, 5);
         
-        sqlConnect.updateLanguage(user5, 1, 5, 0);
-        user4.setCOR("USA");
-        sqlConnect.updateUser(user4);
-        sqlConnect.busy(user);
-        sqlConnect.logoff(user);
         
         User userTester = sqlConnect.searchByUsername(user3.getUsername());
         System.out.println("Username: " + userTester.getUsername());
@@ -162,6 +156,7 @@ public class TandemPlatform {
         int i = 0;
         Language lang = new Language();
         System.out.println("User has "+ languages.size() + " languages");
+        
         LangFrame NewLangFrame = new LangFrame(userTester);
         NewLangFrame.setVisible(true);
         NewLangFrame.setLocationRelativeTo(null);
@@ -176,6 +171,13 @@ public class TandemPlatform {
             System.out.println("Is this a native Language?" + lang.getNativity());
             i = i+1;
         }
+        
+        ArrayList<User> userList = new ArrayList();
+        userList = sqlConnect.searchLanguageUser(3, userTest, 3, 5);
+        System.out.println("User Array:" + userList.size());
+        MatchFrame1 match = new MatchFrame1 (userList);
+        match.setVisible(true);
+        match.setLocationRelativeTo(null);
     }
     
 }

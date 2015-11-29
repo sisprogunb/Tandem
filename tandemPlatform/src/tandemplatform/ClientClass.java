@@ -2,6 +2,7 @@ package tandemplatform;
 
 import java.net.*;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -14,7 +15,7 @@ public class ClientClass {
     private final String servername = "localhost";
     private boolean control = false;
     
-    public void startConnection(){
+    public void startConnection() {
         
         try {
             
@@ -45,6 +46,78 @@ public class ClientClass {
         } catch (IOException ex) {
             Logger.getLogger(ClientClass.class.getName()).log(Level.SEVERE, null, ex);
         }    
+    }
+    
+    public User receiveUser() {
+        
+        User userx = null;
+        
+        try {
+            
+    
+            userx = (User) input.readObject();
+            System.out.println("user received");
+        
+        } catch (IOException ex) {
+            Logger.getLogger(ClientClass.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ClientClass.class.getName()).log(Level.SEVERE, null, ex);
+        }    
+        
+        return userx;
+    }
+    
+    public void sendMatch(int Language, User user, int min, int max)
+    {
+        
+        try {
+            
+            String string = "match";
+            output.writeObject(string);
+            output.flush();
+            output.writeInt(Language);
+            output.flush();
+            output.writeObject(user);
+            output.flush();
+            output.writeInt(min);
+            output.flush();
+            output.writeInt(max);
+            output.flush();
+            
+            System.out.println("Sent");
+        
+        } catch (IOException ex) {
+            Logger.getLogger(ClientClass.class.getName()).log(Level.SEVERE, null, ex);
+        }    
+    }
+    
+    public ArrayList<User> receiveMatch() {
+        
+        ArrayList<User> userArray = new ArrayList();
+        
+        try {
+            
+    
+            userArray = (ArrayList <User>) input.readObject();
+            System.out.println("user received");
+        
+        } catch (IOException ex) {
+            Logger.getLogger(ClientClass.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ClientClass.class.getName()).log(Level.SEVERE, null, ex);
+        }    
+        
+        return userArray;
+    }
+    
+    public void controlReceiveUser() {
+        try {
+            String receive = "user1";
+            output.writeObject(receive);
+            output.flush();
+        } catch (IOException ex) {
+            Logger.getLogger(ClientClass.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void sendLanguages(Language natlan, Language intlan){

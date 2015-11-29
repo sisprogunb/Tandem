@@ -272,22 +272,22 @@ public class SqlComms
         }
         return(result);
     }
-    public ArrayList searchLanguageUser(int Language, User user, int FluencyMin, int FluencyMax)
+    public ArrayList<User> searchLanguageUser(int lingua, User user, int FluencyMin, int FluencyMax)
     {
         PreparedStatement searchLang = null;
         ResultSet resultSet = null;
         ResultSet resultSet2 = null;
         ResultSet resultSet3 = null;
         int result = 0;
-        String langString = ""+Language;
+        String langString = Integer.toString(lingua);
         String userFound = null;
         String FluencyString;
-        String userID = ""+searchUserID(user.getUsername());
+        String userID = Integer.toString(searchUserID(user.getUsername()));
         ArrayList <User> userList = new ArrayList();
         User listMember = new User();
                 
         
-        
+        System.out.println("Buscando match para língua: " + langString);
         query = "SELECT Languages_idLanguages FROM Users_has_Languages WHERE Users_idUser = ? AND Fluency >= 3";
         try
         {
@@ -298,9 +298,10 @@ public class SqlComms
             while(resultSet.next())
             {
             
-                query = "SELECT Users_idUser FROM Users_has_Languages WHERE Languages_idLanguages = ? AND hasInterest = 1"; 
+                query = "SELECT Users_idUser FROM Users_has_Languages WHERE Languages_idLanguages = ? AND hasInterest = 1";
                 searchLang = connection.prepareStatement(query);
                 langString = resultSet.getString("Languages_idLanguages");
+                System.out.println("Searching for users who have language: " + langString);
                 searchLang.setString(1, langString);
                 resultSet2 = searchLang.executeQuery();
                 while(resultSet2.next())
@@ -311,28 +312,35 @@ public class SqlComms
                             + "Fluency <= ?";
                     searchLang = connection.prepareStatement(query);
                     userFound = resultSet2.getString("Users_idUser");
+                    System.out.println("User " + userFound+ " has language: " +langString );
                     searchLang.setString(1,userFound);
-                    langString = ""+Language;
+                    langString = Integer.toString(lingua);
                     searchLang.setString(2,langString);
-                    FluencyString = ""+FluencyMin;
+                    FluencyString = Integer.toString(FluencyMin);
                     searchLang.setString(3, FluencyString);
-                    FluencyString = ""+FluencyMax;
+                    FluencyString = Integer.toString(FluencyMax);
                     searchLang.setString(4, FluencyString);
                     resultSet3 = searchLang.executeQuery();
                     while(resultSet3.next())
                     {
                         listMember.setidUser(resultSet3.getInt("Users_idUser"));
+                        System.out.println("User " + listMember.getidUser() + " fits the bill");
                         query = "SELECT * FROM Users WHERE idUser = ?";
                         searchLang = connection.prepareStatement(query);
                         searchLang.setString(1, Integer.toString(listMember.getidUser()));
                         ResultSet resultSet4 = searchLang.executeQuery();
+                        System.out.println("Searching data for user: " + listMember.getidUser());
                         while(resultSet4.next())
                         {
-                            if(resultSet4.getInt("Status")==0)
+                            if(resultSet4.getInt("Status")!=0)
                             {
                                 listMember.setidUser(resultSet4.getInt("idUser"));
+                                listMember.setUsername(resultSet4.getString("username"));
+                                listMember.setName(resultSet4.getString("Name"));
+                                listMember.setSurname(resultSet4.getString("Surname"));
                                 listMember.setBirthdate(resultSet4.getString("Birthdate"));
                                 listMember.setOccupation(resultSet4.getString("Occupation"));
+                                listMember.setEmail(resultSet4.getString("email"));
                                 listMember.setCOO(resultSet4.getString("CountryOfOrigin"));
                                 listMember.setCOR(resultSet4.getString("CountryOfResidence"));
                                 query = "SELECT * FROM Users_has_Languages WHERE Users_idUser = ?";
@@ -340,20 +348,23 @@ public class SqlComms
                                 membLang = connection.prepareStatement(query);
                                 membLang.setString(1, Integer.toString(listMember.getidUser()));
                                 ResultSet resultSet5 = membLang.executeQuery();
+                                System.out.println("Searching for languages from user: " + listMember.getidUser());
                                 while(resultSet5.next())
                                 {
+                                    System.out.println("Searching for languages");
                                     query = "SELECT Name FROM Languages WHERE idLanguages = ?";
                                     searchLang = connection.prepareStatement(query);
-                                    searchLang.setString(1, Integer.toString(listMember.getidUser()));
+                                    searchLang.setString(1, resultSet5.getString("Languages_idLanguages"));
                                     ResultSet resultSet6 = searchLang.executeQuery();
                                     if(resultSet6.next())
                                     {
                                         String langName = resultSet6.getString("Name");
-                                        
+                                        System.out.println("Adding Language: "+ langName +"to User");
                                         listMember.setNewLanguage(langName, resultSet5.getInt("Languages_idLanguages"), resultSet5.getInt("Fluency"),resultSet5.getInt("hasInterest"), resultSet5.getInt("Native"));
                                     }
                                     
                                 }
+                                System.out.println("Adding user "+ listMember.getidUser() + " to the list");
                                 userList.add(listMember);
                             }
                             
