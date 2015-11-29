@@ -1,241 +1,173 @@
 package tandemplatform;
 
+import java.awt.BorderLayout;
 import javax.swing.JFrame;
+import static javax.swing.JFrame.EXIT_ON_CLOSE;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+
 
 public class SigninFrame2 extends javax.swing.JFrame {
 
-    private User user = null;
-    private ClientClass clientclass = null;
-    
     public SigninFrame2() {
         initComponents();
     }
     
-    public void setClient(ClientClass clientclass){
+     public void setClient(ClientClass clientclass){
         this.clientclass = clientclass;
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        cboxlanguage = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
-        cboxflulanguage = new javax.swing.JComboBox();
+        cboxinterest = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        cboxintlanguage = new javax.swing.JComboBox();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        fluencylevel1 = new javax.swing.JComboBox();
-        jLabel7 = new javax.swing.JLabel();
-        fluencylevel2 = new javax.swing.JComboBox();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        buttonaddlang = new javax.swing.JButton();
-        jLabel11 = new javax.swing.JLabel();
-        buttonsubmit = new javax.swing.JButton();
+        cboxfluency = new javax.swing.JComboBox();
+        button_sendadd = new javax.swing.JButton();
+        button_send = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel1.setText("ADD LANGUAGE YOU HAVE FLUENCY");
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setText("Choose your language: ");
 
-        jLabel2.setText("ADD LANGUAGUE YOU WOULD LIKE TO LEARN");
+        cboxlanguage.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Portuguese", "English", "German", "Japanese", "Mandarin", "Korean", "French", "Italian", "Spanish", "Arabic" }));
 
-        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel2.setText("Choose one of the options below:");
 
-        cboxflulanguage.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Portuguese", "English", "German", "Japanese", "Mandarin", "Korean", "French", "Italian", "Spanish", "Arabic" }));
+        cboxinterest.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "I'd like to teach the selected language", "I'd like to learn the selected language" }));
 
-        jLabel3.setText("LANGUAGE");
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel3.setText("Choose your fluency level:");
 
-        jLabel4.setText("LANGUAGE");
+        cboxfluency.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0 - not fluent", "1", "2", "3", "4", "5 - fluent" }));
 
-        cboxintlanguage.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Portuguese", "English", "German", "Japanese", "Mandarin", "Korean", "French", "Italian", "Spanish", "Arabic" }));
-
-        jLabel5.setText("FROM 0 TO 5, 5 BEING FLUENT LEVEL, CHOOSE");
-
-        jLabel6.setText("A CORRESPONDING NUMBER:");
-
-        fluencylevel1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0 - not fluent", "1", "2", "3 - intermediate", "4", "5 - fluent" }));
-
-        jLabel7.setText("A CORRESPONDING NUMBER:");
-
-        fluencylevel2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0 - not fluent", "1", "2", "3 - intermediate", "4", "5 - fluent" }));
-
-        jLabel8.setText("FROM 0 TO 5, 5 BEING FLUENT LEVEL, CHOOSE");
-
-        jLabel9.setText("SEND AND ADD MORE LANGUAGUES");
-
-        buttonaddlang.setText("SEND & ADD");
-        buttonaddlang.addActionListener(new java.awt.event.ActionListener() {
+        button_sendadd.setText("submit & add more");
+        button_sendadd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonaddlangActionPerformed(evt);
+                button_sendaddActionPerformed(evt);
             }
         });
 
-        jLabel11.setText("IF YOU ALREADY WANT TO SUBMIT, ");
-
-        buttonsubmit.setText("CLICK HERE");
-        buttonsubmit.addActionListener(new java.awt.event.ActionListener() {
+        button_send.setText("submit");
+        button_send.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonsubmitActionPerformed(evt);
+                button_sendActionPerformed(evt);
             }
         });
+
+        jMenu2.setText("Help");
+
+        jMenuItem1.setText("About");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(47, 47, 47)
-                                    .addComponent(cboxflulanguage, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addComponent(jLabel9))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel10)
-                                .addGap(78, 78, 78)
-                                .addComponent(buttonaddlang))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(104, 104, 104)
-                        .addComponent(fluencylevel1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addGap(73, 73, 73)
-                                        .addComponent(cboxintlanguage, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel11)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(69, 69, 69)
-                                .addComponent(fluencylevel2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(32, 32, 32))
+                        .addGap(118, 118, 118)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cboxlanguage, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(buttonsubmit)
-                        .addGap(181, 181, 181))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(75, 75, 75))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(cboxfluency, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(85, 85, 85)))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(button_send, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(button_sendadd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(26, 26, 26))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(81, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(cboxinterest, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(211, 211, 211))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(57, 57, 57)
+                .addGap(59, 59, 59)
+                .addComponent(jLabel1)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(cboxflulanguage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel3))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel4)
-                                .addComponent(cboxintlanguage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(39, 39, 39)
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel6)
-                                .addGap(18, 18, 18)
-                                .addComponent(fluencylevel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(37, 37, 37)
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel7)
-                                .addGap(18, 18, 18)
-                                .addComponent(fluencylevel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel11))
+                        .addGap(10, 10, 10)
+                        .addComponent(cboxlanguage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(button_sendadd, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(26, 26, 26)
+                .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cboxinterest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(buttonaddlang)
-                        .addComponent(buttonsubmit)))
-                .addContainerGap(19, Short.MAX_VALUE))
+                    .addComponent(button_send, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cboxfluency, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>                        
 
-    private void buttonaddlangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonaddlangActionPerformed
+    private void button_sendaddActionPerformed(java.awt.event.ActionEvent evt) {                                               
         
-        //ClientClass clientclass = new ClientClass();
-        //clientclass.startConnection();
+        Language language = new Language();
         
-        Language natlan = new Language();
-        Language intlan = new Language();
-        
-        natlan.setID((cboxflulanguage.getSelectedIndex() + 1) );
-        natlan.setFluency( fluencylevel1.getSelectedIndex() );
-        natlan.setInterest(0);
-        natlan.setNativity(0);
-        
-        intlan.setID((cboxintlanguage.getSelectedIndex() + 1) );
-        intlan.setFluency( fluencylevel2.getSelectedIndex() );
-        intlan.setInterest(1);
-        intlan.setNativity(0);
-     
-        clientclass.sendLanguages(natlan, intlan);
-        
-        //clientclass.closeConnection();
-        
-        cboxflulanguage.setSelectedItem(null);
-        cboxintlanguage.setSelectedItem(null);
-        fluencylevel1.setSelectedItem(null);
-        fluencylevel2.setSelectedItem(null);
-        
-        
-    }//GEN-LAST:event_buttonaddlangActionPerformed
+        language.setID( ( cboxlanguage.getSelectedIndex() + 1 ) );
+        language.setFluency( cboxfluency.getSelectedIndex() );
+        language.setInterest( cboxinterest.getSelectedIndex());
+        language.setNativity(0);
 
-    private void buttonsubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonsubmitActionPerformed
-        
-        //ClientClass clientclass = new ClientClass();
-        //clientclass.startConnection();
-        
-        Language natlan = new Language();
-        Language intlan = new Language();
-        
-        natlan.setID((cboxflulanguage.getSelectedIndex() + 1) );
-        natlan.setFluency( fluencylevel1.getSelectedIndex() );
-        natlan.setInterest(0);
-        natlan.setNativity(0);
      
-        intlan.setID((cboxintlanguage.getSelectedIndex() + 1) );
-        intlan.setFluency( fluencylevel2.getSelectedIndex() );
-        intlan.setInterest(1);
-        intlan.setNativity(0);
-     
-        clientclass.sendLanguages(natlan, intlan);
+        clientclass.sendLanguages(language);
         
-        clientclass.closeConnection();
+        cboxlanguage.setSelectedItem(null);
+        cboxinterest.setSelectedItem(null);
+        cboxfluency.setSelectedItem(null);
+        
+    }                                              
+
+    private void button_sendActionPerformed(java.awt.event.ActionEvent evt) {                                            
+        
+        Language language = new Language();
+        
+        language.setID( ( cboxlanguage.getSelectedIndex() + 1 ) );
+        language.setFluency( cboxfluency.getSelectedIndex() );
+        language.setInterest( cboxinterest.getSelectedIndex() );
+        language.setNativity(0);
+
+     
+        clientclass.sendLanguages(language);
         
         this.setVisible(false);
         InitialPanel o = new InitialPanel();
@@ -243,26 +175,37 @@ public class SigninFrame2 extends javax.swing.JFrame {
         o.setVisible(true);
         o.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-    }//GEN-LAST:event_buttonsubmitActionPerformed
+        
+    }                                           
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonaddlang;
-    private javax.swing.JButton buttonsubmit;
-    private javax.swing.JComboBox cboxflulanguage;
-    private javax.swing.JComboBox cboxintlanguage;
-    private javax.swing.JComboBox fluencylevel1;
-    private javax.swing.JComboBox fluencylevel2;
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {                                           
+        JFrame f = new JFrame("ABOUT");
+        JPanel p = new JPanel(new BorderLayout());
+        JTextArea a = new JTextArea();
+        a.append("Projeto de Sistemas de Programação \n" +
+                "Alunos: Daniel Ando e Marcos Guo \n" +
+                "Plataforma de Aprendizagem de Idiomas TANDEM");
+        a.setEditable(false);
+        p.add(a);
+        f.setContentPane(p);
+        f.setVisible(true);
+        f.setSize(400, 100);
+        f.setLocationRelativeTo(null);
+        
+    }                                          
+
+    private ClientClass clientclass = null;
+    // Variables declaration - do not modify                     
+    private javax.swing.JButton button_send;
+    private javax.swing.JButton button_sendadd;
+    private javax.swing.JComboBox cboxfluency;
+    private javax.swing.JComboBox cboxinterest;
+    private javax.swing.JComboBox cboxlanguage;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JSeparator jSeparator1;
-    // End of variables declaration//GEN-END:variables
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    // End of variables declaration                   
 }
