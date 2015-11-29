@@ -41,7 +41,7 @@ public class ClientClass {
             
             output.writeObject(user);
             output.flush();
-            System.out.println("Sended.");
+            System.out.println("Sent.");
         
         } catch (IOException ex) {
             Logger.getLogger(ClientClass.class.getName()).log(Level.SEVERE, null, ex);
@@ -120,7 +120,7 @@ public class ClientClass {
         }
     }
     
-    public void sendLanguages(Language natlan, Language intlan){
+    public void sendLanguages(Language natlan){
         
         try {
             
@@ -130,9 +130,8 @@ public class ClientClass {
 
             output.writeObject(natlan);
             output.flush();
-            output.writeObject(intlan);
-            output.flush();
-            System.out.println("Sended.");
+
+            System.out.println("Sent.");
             
         } catch (IOException ex) {
             Logger.getLogger(ClientClass.class.getName()).log(Level.SEVERE, null, ex);
@@ -150,7 +149,7 @@ public class ClientClass {
             
             output.writeObject(string);
             output.flush();
-            System.out.println("Sended.");
+            System.out.println("Sent.");
         
         } catch (IOException ex) {
             Logger.getLogger(ClientClass.class.getName()).log(Level.SEVERE, null, ex);
@@ -167,7 +166,7 @@ public class ClientClass {
             
             output.writeObject(string);
             output.flush();
-            System.out.println("Sended.");
+            System.out.println("Sent.");
         
         } catch (IOException ex) {
             Logger.getLogger(ClientClass.class.getName()).log(Level.SEVERE, null, ex);
