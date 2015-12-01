@@ -28,7 +28,7 @@ public class SqlComms
     String root = "tandem";
     String dbPassword = "tandem";
     String query = null;
-    
+    //Construtor
     public SqlComms()
     {
         try
@@ -40,6 +40,7 @@ public class SqlComms
             sqlException.printStackTrace();
         }
     }
+    //Cadastra usuario no banco de dados
     public void createUser(User user)            
     {   
         ResultSet resultSet = null;
@@ -47,12 +48,10 @@ public class SqlComms
         PreparedStatement insertUser = null;
         
         User results = new User();
+        //Query de SQL para inserir usuario no banco de dados
         query = "INSERT INTO Users ( Name, Surname, username, password, Birthdate, Occupation, email, "
                 + "CountryOfOrigin, CountryOfResidence, Status) VALUES (?,?,?,?,?,?,?,?,?,?);";
-        
-        
-        
-        
+
         System.out.println("Query: " + query);
         try
         {
@@ -75,13 +74,13 @@ public class SqlComms
             insertUser = connection.prepareStatement(query);
             insertUser.setString(1, user.getUsername());
             resultSet = insertUser.executeQuery();
+            //Cadastra linguas nativa do usuario
             if(resultSet.next())
             {
                 user.setidUser(resultSet.getInt("idUser"));
                 System.out.println("UserID:" + user.getidUser());
                 insertNativeLanguage(user);
             }
-            
         }
         catch(SQLException sqlException)
         {
@@ -90,6 +89,7 @@ public class SqlComms
            
         
     }
+    //insere lingua nativa do usuario no banco de dados
     public void insertNativeLanguage(User user)
     {
         PreparedStatement insertNativeLanguage = null;
@@ -98,7 +98,7 @@ public class SqlComms
         String nativeLanguage;
         try
         {
-            
+            //Query para inserir lingua nativa no banco de dados
             query = "INSERT INTO Users_has_Languages (Users_idUser, Languages_idLanguages,"
                     + " Fluency, hasInterest, Native) VALUES (?,?,?,?,?);";
             
@@ -118,6 +118,7 @@ public class SqlComms
             sqlException.printStackTrace();
         }
     }
+    //Método para inserir língua qualquer no banco de dados
     public void insertLanguage(User user, int Language, int Fluency, int hasInterest)
     {
         PreparedStatement insertLanguage = null;
@@ -148,6 +149,7 @@ public class SqlComms
             sqlException.printStackTrace();
         }
     }
+    //Método para atualizar lingua ja cadastrada
     public void updateLanguage(User user, int language, int fluency, int hasInterest)
     {
          PreparedStatement insertLanguage = null;
@@ -179,6 +181,7 @@ public class SqlComms
         }
         
     }
+    //Metodo para atualizar cadastro de usuario
     public void updateUser(User user)
     {
         PreparedStatement insertLanguage = null;
@@ -207,6 +210,7 @@ public class SqlComms
             sqlException.printStackTrace();
         }
     }
+    //Metodo para informar que usuario ja esta em chat com outro
     public void busy(User user)
     {
         PreparedStatement logOffStatement = null;
@@ -225,6 +229,7 @@ public class SqlComms
             sqlException.printStackTrace();
         }        
     }
+    //metodo que informa o banco de dados que o usuario saiu da aplicacao
     public void logoff(User user)
     {
         PreparedStatement logOffStatement = null;
@@ -243,6 +248,7 @@ public class SqlComms
             sqlException.printStackTrace();
         }
     }
+    //metodo para checar se existe usuario cadastrado com o username indicado
     public int userExist(String username)
     {
         PreparedStatement searchUser = null;
@@ -272,6 +278,8 @@ public class SqlComms
         }
         return(result);
     }
+    //metodo que gera lista de usuarios que falem a lingua de interesse do usuario realizando a busca
+    //e que tenham interesse em alguma lingua deste usuario. Realiza match
     public ArrayList<User> searchLanguageUser(int lingua, User user, int FluencyMin, int FluencyMax)
     {
         PreparedStatement searchLang = null;
@@ -285,8 +293,9 @@ public class SqlComms
         String userID = Integer.toString(searchUserID(user.getUsername()));
         ArrayList <User> userList = new ArrayList();
         User listMember = new User();
+        User userCheck = new User();
                 
-        
+        //Procura linguas que o usuario realizando a busca sabe e tem fluencia media ou alta
         System.out.println("Buscando match para língua: " + langString);
         query = "SELECT Languages_idLanguages FROM Users_has_Languages WHERE Users_idUser = ? AND Fluency >= 3";
         try
@@ -297,7 +306,7 @@ public class SqlComms
             
             while(resultSet.next())
             {
-            
+                //busca usuarios com interesse nas linguas retornadas na busca anterior
                 query = "SELECT Users_idUser FROM Users_has_Languages WHERE Languages_idLanguages = ? AND hasInterest = 1";
                 searchLang = connection.prepareStatement(query);
                 langString = resultSet.getString("Languages_idLanguages");
@@ -306,7 +315,8 @@ public class SqlComms
                 resultSet2 = searchLang.executeQuery();
                 while(resultSet2.next())
                 {
-            
+                    //busca, dentre os usuarios da lista anterior, quais sabem a lingua que o
+                    //usuario que pediu o match está procurando
                     query = "SELECT Users_idUser FROM Users_has_Languages WHERE Users_idUser = ? AND"
                             + " Languages_idLanguages = ? AND Fluency >= ? AND "
                             + "Fluency <= ?";
@@ -321,10 +331,13 @@ public class SqlComms
                     FluencyString = Integer.toString(FluencyMax);
                     searchLang.setString(4, FluencyString);
                     resultSet3 = searchLang.executeQuery();
+                    boolean flag = false;
                     while(resultSet3.next())
                     {
+                        
                         listMember.setidUser(resultSet3.getInt("Users_idUser"));
                         System.out.println("User " + listMember.getidUser() + " fits the bill");
+                        //busca dados de usuarios que cumpram os pre-requisitos para um match
                         query = "SELECT * FROM Users WHERE idUser = ?";
                         searchLang = connection.prepareStatement(query);
                         searchLang.setString(1, Integer.toString(listMember.getidUser()));
@@ -334,23 +347,33 @@ public class SqlComms
                         {
                             if(resultSet4.getInt("Status")!=0)
                             {
+                                //Captura dados de usuarios que cumpram os pre requisitos para um match
+                                //e monta a lista 1 a 1
+                                listMember = new User();
                                 listMember.setidUser(resultSet4.getInt("idUser"));
-                                listMember.setUsername(resultSet4.getString("username"));
+                                System.out.println("ID set to: " + listMember.getidUser());
+                                
                                 listMember.setName(resultSet4.getString("Name"));
+                                
                                 listMember.setSurname(resultSet4.getString("Surname"));
+                                listMember.setUsername(resultSet4.getString("username"));
+                                System.out.println("Username set to: " + listMember.getUsername());
                                 listMember.setBirthdate(resultSet4.getString("Birthdate"));
                                 listMember.setOccupation(resultSet4.getString("Occupation"));
                                 listMember.setEmail(resultSet4.getString("email"));
                                 listMember.setCOO(resultSet4.getString("CountryOfOrigin"));
                                 listMember.setCOR(resultSet4.getString("CountryOfResidence"));
+                                //Procura linguas que usuario que cumpre pre requisitos do match sabem
                                 query = "SELECT * FROM Users_has_Languages WHERE Users_idUser = ?";
                                 PreparedStatement membLang = null;
                                 membLang = connection.prepareStatement(query);
                                 membLang.setString(1, Integer.toString(listMember.getidUser()));
                                 ResultSet resultSet5 = membLang.executeQuery();
                                 System.out.println("Searching for languages from user: " + listMember.getidUser());
+                                
                                 while(resultSet5.next())
                                 {
+                                    //busca nome das linguas
                                     System.out.println("Searching for languages");
                                     query = "SELECT Name FROM Languages WHERE idLanguages = ?";
                                     searchLang = connection.prepareStatement(query);
@@ -364,8 +387,28 @@ public class SqlComms
                                     }
                                     
                                 }
-                                System.out.println("Adding user "+ listMember.getidUser() + " to the list");
-                                userList.add(listMember);
+                                //adiciona usuarios à lista um a um.
+                                if (!(listMember.getidUser().equals(user.getidUser())))
+                                {
+                                    flag = false;
+                                    System.out.println("Found match. Not User");
+                                    for (int i =0;i<userList.size();i++)
+                                    {
+                                        userCheck = userList.get(i);
+                                        System.out.println("Checking user on the list with username: " +userCheck.getUsername());
+                                        if(listMember.getUsername().equals(userCheck.getUsername()))
+                                        {
+                                            flag = true;
+                                            System.out.println("Match already on the list");
+                                        }
+                                    }
+                                    if (!flag)
+                                    {
+                                        System.out.println("Adding user "+ listMember.getidUser() + " to the list");
+                                        userList.add(listMember);
+                                        System.out.println("Now the list has " + userList.size() + " users");
+                                    }
+                                }
                             }
                             
                         }
@@ -380,8 +423,10 @@ public class SqlComms
         {
             sql.printStackTrace();
         }
+        //retorna lista de usuarios
         return(userList);
     }
+    
     public int searchUserID(String username)
     {
         PreparedStatement searchUser = null;
